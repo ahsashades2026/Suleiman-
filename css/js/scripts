@@ -1,0 +1,1004 @@
+// ========== متغيرات عامة ==========
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let services = [];
+let gallery = [];
+let testimonials = [];
+let faqs = [];
+let currentFilter = 'all';
+let currentSort = 'popular';
+let displayedServices = 8;
+
+// ========== تهيئة الموقع ==========
+function initializeSite() {
+    loadInitialData();
+    setupEventListeners();
+    updateCartCount();
+    checkCart();
+    
+    // إضافة تأثيرات عند التمرير
+    setupScrollEffects();
+    
+    // تهيئة النظام
+    console.log('موقع روابي الأحساء جاهز للعمل!');
+}
+
+// ========== تحميل البيانات الأولية ==========
+function loadInitialData() {
+    // بيانات الخدمات
+    services = [
+        {
+            id: 1,
+            name: "هناجر ومستودعات حديدية",
+            category: "هناجر",
+            price: 150,
+            unit: "م²",
+            icon: "🏭",
+            description: "تصميم وتنفيذ هناجر حديدية للمصانع والمخازن، مقاومة للعوامل الجوية بمواصفات أمان عالية.",
+            popular: true,
+            badge: "الأكثر طلباً",
+            features: ["ضمان 15 سنة", "تركيب سريع", "تصميم هندسي"]
+        },
+        {
+            id: 2,
+            name: "سواتر حديدية للخصوصية",
+            category: "سواتر",
+            price: 120,
+            unit: "م²",
+            icon: "🏗️",
+            description: "سواتر حديدية وشرائح PVC للخصوصية والأمان، مواد عازلة للصوت والحرارة.",
+            popular: true,
+            badge: "خصم 10%",
+            features: ["عازل للصوت", "خصوصية كاملة", "تنظيف سهل"]
+        },
+        {
+            id: 3,
+            name: "برجولات خشبية فاخرة",
+            category: "برجولات",
+            price: 8000,
+            unit: "مجموعة",
+            icon: "🌳",
+            description: "برجولات خشبية وحديدية بتصاميم فنية، جلسات خارجية مريحة، إضاءة LED مدمجة.",
+            popular: true,
+            features: ["إضاءة LED", "تصميم فني", "خشب مقاوم"]
+        },
+        {
+            id: 4,
+            name: "مظلات سيارات PVC ألمانية",
+            category: "مظلات",
+            price: 3500,
+            unit: "مظلة",
+            icon: "🚗",
+            description: "مظلات PVC ألمانية عالية الجودة، مقاومة للأشعة فوق البنفسجية، أشكال عصرية.",
+            popular: true,
+            badge: "جديد"
+        },
+        {
+            id: 5,
+            name: "قرميد إيطالي فاخر",
+            category: "قرميد",
+            price: 200,
+            unit: "م²",
+            icon: "🏠",
+            description: "قرميد إيطالي وإسباني فاخر، عزل حراري ومائي استثنائي، يناسب الفلل والقصور."
+        },
+        {
+            id: 6,
+            name: "تنسيق حدائق كامل",
+            category: "حدائق",
+            price: 50,
+            unit: "م²",
+            icon: "🌿",
+            description: "تصميم وتنسيق الحدائق، عشب صناعي، شلالات ونوافير، تحويل مساحتك إلى جنة خضراء."
+        },
+        {
+            id: 7,
+            name: "خيام ملكية وبيوت شعر",
+            category: "خيام",
+            price: 15000,
+            unit: "خيمة",
+            icon: "⛺",
+            description: "خيام ملكية وبيوت شعر تراثية فخمة، عازلة للحرارة والرطوبة، تناسب المناسبات الكبيرة.",
+            popular: true
+        },
+        {
+            id: 8,
+            name: "ديكورات بديل الخشب",
+            category: "ديكورات",
+            price: 180,
+            unit: "م²",
+            icon: "🎨",
+            description: "ديكورات داخلية وخارجية ببديل الخشب والرخام الصناعي، مواد مقاومة للعوامل الجوية."
+        },
+        {
+            id: 9,
+            name: "شبابيك ألمنيوم مزدوج",
+            category: "شبابيك",
+            price: 400,
+            unit: "م²",
+            icon: "🪟",
+            description: "شبابيك وأبواب ألمنيوم، عزل حراري وصوتي ممتاز، تصميمات عصرية وألوان متنوعة."
+        },
+        {
+            id: 10,
+            name: "أعمال حدادة خاصة",
+            category: "أعمال خاصة",
+            price: 3000,
+            unit: "عمل",
+            icon: "⚒️",
+            description: "تصميم وتنفيذ أعمال حدادة خاصة، درج حديد، بوابات فنية، تحف معدنية، تصاميم حصرية.",
+            badge: "حصرية"
+        },
+        {
+            id: 11,
+            name: "هناجر صناعية كبيرة",
+            category: "هناجر",
+            price: 180,
+            unit: "م²",
+            icon: "🏭",
+            description: "هناجر صناعية للمصانع الكبيرة، هياكل قوية، أبواب أوتوماتيكية، عزل متكامل."
+        },
+        {
+            id: 12,
+            name: "سواتر شبوك زراعية",
+            category: "سواتر",
+            price: 80,
+            unit: "م²",
+            icon: "🌾",
+            description: "شبوك زراعية وأسوار للمزارع، حماية وخصوصية، مواد مجلفنة مقاومة للصدأ."
+        }
+    ];
+
+    // بيانات المعرض
+    gallery = [
+        { id: 1, title: "هناجر مصنع أثاث", category: "هناجر", icon: "🏭" },
+        { id: 2, title: "سواتر فيلا فاخرة", category: "سواتر", icon: "🏗️" },
+        { id: 3, title: "برجولات منتجع", category: "برجولات", icon: "🌳" },
+        { id: 4, title: "مظلات مول تجاري", category: "مظلات", icon: "🚗" },
+        { id: 5, title: "قرميد قصر", category: "قرميد", icon: "🏠" },
+        { id: 6, title: "حديقة منزلية", category: "حدائق", icon: "🌿" },
+        { id: 7, title: "خيمة مناسبة كبرى", category: "خيام", icon: "⛺" },
+        { id: 8, title: "ديكورات داخلية", category: "ديكورات", icon: "🎨" }
+    ];
+
+    // بيانات التقييمات
+    testimonials = [
+        {
+            id: 1,
+            name: "أحمد السليم",
+            city: "الهفوف",
+            rating: 5,
+            comment: "خدمة ممتازة وجودة عالية في التنفيذ، فريق العمل محترف جداً",
+            project: "سواتر حديدية"
+        },
+        {
+            id: 2,
+            name: "محمد القحطاني",
+            city: "المبرز",
+            rating: 5,
+            comment: "هناجر المصنع تم تركيبها في وقت قياسي وبجودة ممتازة",
+            project: "هناجر صناعية"
+        },
+        {
+            id: 3,
+            name: "سالم العلي",
+            city: "العيون",
+            rating: 5,
+            comment: "البرجولات التي طلبتها كانت أفضل من المتوقع، التصميم رائع",
+            project: "برجولات خشبية"
+        },
+        {
+            id: 4,
+            name: "فهد الجبر",
+            city: "الجفر",
+            rating: 4,
+            comment: "مظلات السيارات ممتازة ونوعية المواد عالية الجودة",
+            project: "مظلات سيارات"
+        }
+    ];
+
+    // بيانات الأسئلة الشائعة
+    faqs = [
+        {
+            question: "كم تستغرق مدة التنفيذ؟",
+            answer: "تتراوح مدة التنفيذ من 3 إلى 14 يوم عمل حسب حجم المشروع ونوع الخدمة. المشاريع الصغيرة (المظلات، السواتر الصغيرة) تتراوح من 3-7 أيام، بينما المشاريع الكبيرة (الهناجر، المشاريع المتكاملة) قد تصل إلى 14 يوم."
+        },
+        {
+            question: "هل هناك ضمان على الخدمات؟",
+            answer: "نعم، جميع خدماتنا مضمونة لمدة 15 سنة ضد عيوب التصنيع والتركيب. كما نقدم ضمان الصدق لمدة سنة على الأعمال الإنشائية."
+        },
+        {
+            question: "هل تقدمون خدمة التصميم؟",
+            answer: "نعم، نقدم خدمة التصميم المجاني قبل التنفيذ لضمان رضاك التام. يمكننا عمل تصاميم ثلاثية الأبعاد للمشروع قبل البدء بالتنفيذ."
+        },
+        {
+            question: "ما هي طرق الدفع المتاحة؟",
+            answer: "نقبل الدفع نقداً عند التنفيذ، التحويل البنكي، وبطاقات الائتمان. كما يمكننا عمل جدولة للدفع للمشاريع الكبيرة."
+        },
+        {
+            question: "هل تقدمون خدمة ما بعد البيع؟",
+            answer: "نعم، نقدم خدمة صيانة دورية ودعم فني متواصل على مدار الساعة عبر الهاتف والواتساب."
+        },
+        {
+            question: "كيف يتم تحديد السعر النهائي؟",
+            answer: "يتم تحديد السعر بناءً على: 1- مساحة المشروع 2- نوع المواد المطلوبة 3- تعقيد التصميم 4- وقت التنفيذ. نقدم معاينة مجانية لتحديد السعر النهائي."
+        }
+    ];
+
+    // عرض البيانات
+    renderServices();
+    renderGallery();
+    renderTestimonials();
+    renderFAQ();
+    updateStats();
+}
+
+// ========== عرض الخدمات ==========
+function renderServices() {
+    const servicesGrid = document.getElementById('servicesGrid');
+    if (!servicesGrid) return;
+    
+    let filteredServices = filterServices();
+    filteredServices = sortServices(filteredServices);
+    
+    const servicesToShow = filteredServices.slice(0, displayedServices);
+    
+    servicesGrid.innerHTML = '';
+    
+    servicesToShow.forEach(service => {
+        const serviceCard = createServiceCard(service);
+        servicesGrid.appendChild(serviceCard);
+    });
+    
+    updateLoadMoreButton(filteredServices.length);
+}
+
+function createServiceCard(service) {
+    const card = document.createElement('div');
+    card.className = 'service-card animate-fade-in';
+    card.dataset.id = service.id;
+    card.dataset.category = service.category;
+    
+    let badgeHTML = '';
+    if (service.badge) {
+        badgeHTML = `<div class="service-badge">${service.badge}</div>`;
+    }
+    
+    let featuresHTML = '';
+    if (service.features && service.features.length > 0) {
+        featuresHTML = `
+            <div class="service-features">
+                ${service.features.map(feature => `<span class="feature-tag">${feature}</span>`).join('')}
+            </div>
+        `;
+    }
+    
+    card.innerHTML = `
+        ${badgeHTML}
+        <div class="service-image">
+            <div class="service-icon">${service.icon}</div>
+        </div>
+        <div class="service-info">
+            <span class="service-category">${service.category}</span>
+            <h3 class="service-title">${service.name}</h3>
+            <p class="service-description">${service.description}</p>
+            ${featuresHTML}
+            <div class="service-price">
+                ${service.price.toLocaleString()} ر.س
+                <span class="service-price-unit">/${service.unit}</span>
+            </div>
+            <button class="add-to-cart" data-id="${service.id}">
+                <i class="fas fa-cart-plus"></i> أضف للسلة
+            </button>
+        </div>
+    `;
+    
+    return card;
+}
+
+// ========== تصفية وترتيب الخدمات ==========
+function filterServices() {
+    if (currentFilter === 'all') return services;
+    return services.filter(service => service.category === currentFilter);
+}
+
+function sortServices(servicesList) {
+    switch(currentSort) {
+        case 'price-low':
+            return [...servicesList].sort((a, b) => a.price - b.price);
+        case 'price-high':
+            return [...servicesList].sort((a, b) => b.price - a.price);
+        case 'newest':
+            return [...servicesList].reverse();
+        case 'popular':
+        default:
+            return [...servicesList].sort((a, b) => {
+                if (a.popular && !b.popular) return -1;
+                if (!a.popular && b.popular) return 1;
+                return 0;
+            });
+    }
+}
+
+// ========== تحديث زر "عرض المزيد" ==========
+function updateLoadMoreButton(totalServices) {
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (!loadMoreBtn) return;
+    
+    if (displayedServices >= totalServices) {
+        loadMoreBtn.style.display = 'none';
+    } else {
+        loadMoreBtn.style.display = 'inline-flex';
+        const remaining = totalServices - displayedServices;
+        loadMoreBtn.innerHTML = `<i class="fas fa-plus"></i> عرض المزيد (${remaining} خدمة)`;
+    }
+}
+
+// ========== عرض المعرض ==========
+function renderGallery() {
+    const galleryGrid = document.getElementById('galleryGrid');
+    if (!galleryGrid) return;
+    
+    galleryGrid.innerHTML = gallery.map(item => `
+        <div class="gallery-item animate-fade-in">
+            <div class="gallery-image">
+                <div class="gallery-icon">${item.icon}</div>
+            </div>
+            <div class="gallery-overlay">
+                <h4>${item.title}</h4>
+                <p>${item.category}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ========== عرض التقييمات ==========
+function renderTestimonials() {
+    const testimonialsGrid = document.getElementById('testimonialsGrid');
+    if (!testimonialsGrid) return;
+    
+    testimonialsGrid.innerHTML = testimonials.map(test => `
+        <div class="testimonial-card animate-fade-in">
+            <div class="client-rating">
+                ${'★'.repeat(test.rating)}${'☆'.repeat(5 - test.rating)}
+            </div>
+            <p>"${test.comment}"</p>
+            <h4>${test.name}</h4>
+            <small>${test.city} - ${test.project}</small>
+        </div>
+    `).join('');
+}
+
+// ========== عرض الأسئلة الشائعة ==========
+function renderFAQ() {
+    const faqContainer = document.getElementById('faqContainer');
+    if (!faqContainer) return;
+    
+    faqContainer.innerHTML = faqs.map((faq, index) => `
+        <div class="faq-item ${index === 0 ? 'active' : ''}">
+            <div class="faq-question">
+                <h4>${faq.question}</h4>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer" style="${index === 0 ? 'max-height: 500px; padding: 20px;' : ''}">
+                <p>${faq.answer}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ========== تحديث الإحصائيات ==========
+function updateStats() {
+    const stats = document.querySelectorAll('.stat-number');
+    stats.forEach(stat => {
+        const target = parseInt(stat.dataset.count);
+        animateCount(stat, target);
+    });
+}
+
+function animateCount(element, target) {
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 30);
+}
+
+// ========== إدارة السلة ==========
+function addToCart(serviceId) {
+    const service = services.find(s => s.id === serviceId);
+    if (!service) return;
+    
+    const existingItem = cart.find(item => item.id === serviceId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            id: service.id,
+            name: service.name,
+            price: service.price,
+            unit: service.unit,
+            icon: service.icon,
+            quantity: 1
+        });
+    }
+    
+    saveCart();
+    updateCartCount();
+    showNotification(`تمت إضافة "${service.name}" إلى السلة`, 'success');
+    
+    if (document.querySelector('.cart-sidebar.active')) {
+        renderCartItems();
+        updateCartSummary();
+    }
+}
+
+function removeFromCart(serviceId) {
+    cart = cart.filter(item => item.id !== serviceId);
+    saveCart();
+    updateCartCount();
+    renderCartItems();
+    updateCartSummary();
+    showNotification('تمت إزالة المنتج من السلة', 'info');
+}
+
+function updateQuantity(serviceId, newQuantity) {
+    if (newQuantity < 1) {
+        removeFromCart(serviceId);
+        return;
+    }
+    
+    const item = cart.find(item => item.id === serviceId);
+    if (item) {
+        item.quantity = newQuantity;
+        saveCart();
+        renderCartItems();
+        updateCartSummary();
+    }
+}
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// ========== عرض عناصر السلة ==========
+function renderCartItems() {
+    const cartItems = document.getElementById('cartItems');
+    if (!cartItems) return;
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h4>السلة فارغة</h4>
+                <p>أضف خدمات لتبدأ التسوق</p>
+                <a href="#services" class="cta-button primary" onclick="closeCart()">تصفح الخدمات</a>
+            </div>
+        `;
+        return;
+    }
+    
+    cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+            <div class="cart-item-image">
+                <div class="cart-icon">${item.icon}</div>
+            </div>
+            <div class="cart-item-details">
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} ر.س</div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                    <span class="quantity-value">${item.quantity}</span>
+                    <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                </div>
+            </div>
+            <button class="cart-item-remove" data-id="${item.id}">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `).join('');
+}
+
+// ========== تحديث ملخص السلة ==========
+function updateCartSummary() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const tax = subtotal * 0.15;
+    const total = subtotal + tax;
+    
+    document.querySelector('.cart-subtotal').textContent = subtotal.toLocaleString() + ' ر.س';
+    document.querySelector('.cart-tax').textContent = tax.toLocaleString() + ' ر.س';
+    document.querySelector('.cart-total').textContent = total.toLocaleString() + ' ر.س';
+}
+
+// ========== تحديث عداد السلة ==========
+function updateCartCount() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCount = document.querySelector('.cart-count');
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+        cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+// ========== فتح وإغلاق السلة ==========
+function openCart() {
+    document.querySelector('.cart-sidebar').classList.add('active');
+    renderCartItems();
+    updateCartSummary();
+}
+
+function closeCart() {
+    document.querySelector('.cart-sidebar').classList.remove('active');
+}
+
+function toggleCart() {
+    const cartSidebar = document.querySelector('.cart-sidebar');
+    if (cartSidebar.classList.contains('active')) {
+        closeCart();
+    } else {
+        openCart();
+    }
+}
+
+// ========== التحقق من السلة ==========
+function checkCart() {
+    if (cart.length > 0 && !localStorage.getItem('cartNotified')) {
+        showNotification(`لديك ${cart.length} عنصر في السلة`, 'info');
+        localStorage.setItem('cartNotified', 'true');
+    }
+}
+
+// ========== إشعارات ==========
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// ========== البحث ==========
+function searchServices() {
+    const searchInput = document.getElementById('searchInput');
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    if (!searchTerm) {
+        renderServices();
+        return;
+    }
+    
+    const filtered = services.filter(service => 
+        service.name.toLowerCase().includes(searchTerm) ||
+        service.description.toLowerCase().includes(searchTerm) ||
+        service.category.toLowerCase().includes(searchTerm)
+    );
+    
+    const servicesGrid = document.getElementById('servicesGrid');
+    servicesGrid.innerHTML = '';
+    
+    if (filtered.length === 0) {
+        servicesGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                <i class="fas fa-search" style="font-size: 48px; color: var(--gray); margin-bottom: 20px;"></i>
+                <h3>لم يتم العثور على خدمات</h3>
+                <p>جرب مصطلحات بحث أخرى</p>
+            </div>
+        `;
+    } else {
+        filtered.forEach(service => {
+            const serviceCard = createServiceCard(service);
+            servicesGrid.appendChild(serviceCard);
+        });
+    }
+    
+    document.getElementById('loadMoreBtn').style.display = 'none';
+}
+
+// ========== تأثيرات التمرير ==========
+function setupScrollEffects() {
+    // زر العودة للأعلى
+    const backToTop = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+        
+        // تأثيرات ظهور العناصر
+        animateOnScroll();
+    });
+    
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+function animateOnScroll() {
+    const elements = document.querySelectorAll('.animate-fade-in');
+    
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('animate');
+        }
+    });
+}
+
+// ========== إعداد الأحداث ==========
+function setupEventListeners() {
+    // فتح وإغلاق القائمة المتنقلة
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const closeMenu = document.querySelector('.close-menu');
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+    }
+    
+    if (closeMenu) {
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+    }
+    
+    // إغلاق القائمة بالضغط خارجها
+    document.addEventListener('click', (e) => {
+        if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target) && mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+        }
+    });
+    
+    // أزرار التصفية
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentFilter = this.dataset.filter;
+            displayedServices = 8;
+            renderServices();
+        });
+    });
+    
+    // ترتيب الخدمات
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            currentSort = this.value;
+            renderServices();
+        });
+    }
+    
+    // زر "عرض المزيد"
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            displayedServices += 4;
+            renderServices();
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    }
+    
+    // البحث بالضغط على Enter
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchServices();
+            }
+        });
+    }
+    
+    // الأحداث العامة
+    document.addEventListener('click', function(e) {
+        // إضافة للسلة
+        if (e.target.closest('.add-to-cart')) {
+            const button = e.target.closest('.add-to-cart');
+            const serviceId = parseInt(button.dataset.id);
+            addToCart(serviceId);
+        }
+        
+        // فتح السلة
+        if (e.target.closest('#cartIcon')) {
+            e.preventDefault();
+            toggleCart();
+        }
+        
+        // إغلاق السلة
+        if (e.target.closest('.close-cart')) {
+            closeCart();
+        }
+        
+        // الأسئلة الشائعة
+        if (e.target.closest('.faq-question')) {
+            const faqItem = e.target.closest('.faq-item');
+            const isActive = faqItem.classList.contains('active');
+            
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.faq-answer').style.maxHeight = null;
+                item.querySelector('.faq-answer').style.padding = null;
+            });
+            
+            if (!isActive) {
+                faqItem.classList.add('active');
+                const answer = faqItem.querySelector('.faq-answer');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.style.padding = '20px';
+            }
+        }
+        
+        // إدارة الكمية في السلة
+        if (e.target.closest('.quantity-btn')) {
+            const button = e.target.closest('.quantity-btn');
+            const serviceId = parseInt(button.dataset.id);
+            const action = button.classList.contains('increase') ? 'increase' : 'decrease';
+            const item = cart.find(item => item.id === serviceId);
+            
+            if (item) {
+                if (action === 'increase') {
+                    updateQuantity(serviceId, item.quantity + 1);
+                } else {
+                    updateQuantity(serviceId, item.quantity - 1);
+                }
+            }
+        }
+        
+        // إزالة من السلة
+        if (e.target.closest('.cart-item-remove')) {
+            const button = e.target.closest('.cart-item-remove');
+            const serviceId = parseInt(button.dataset.id);
+            removeFromCart(serviceId);
+        }
+        
+        // إتمام الطلب
+        if (e.target.closest('#checkoutBtn')) {
+            if (cart.length === 0) {
+                showNotification('السلة فارغة. أضف خدمات أولاً', 'warning');
+                return;
+            }
+            
+            openCheckoutModal();
+        }
+    });
+    
+    // نموذج الاتصال
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: this.querySelector('input[type="text"]').value,
+                phone: this.querySelector('input[type="tel"]').value,
+                email: this.querySelector('input[type="email"]').value || '',
+                service: this.querySelector('select').value,
+                message: this.querySelector('textarea').value || ''
+            };
+            
+            // إنشاء رسالة الواتساب
+            let whatsappMessage = `*رسالة جديدة من موقع روابي الأحساء*\n\n`;
+            whatsappMessage += `*الاسم:* ${formData.name}\n`;
+            whatsappMessage += `*الهاتف:* ${formData.phone}\n`;
+            if (formData.email) whatsappMessage += `*البريد:* ${formData.email}\n`;
+            whatsappMessage += `*الخدمة:* ${formData.service}\n\n`;
+            if (formData.message) whatsappMessage += `*الرسالة:*\n${formData.message}\n\n`;
+            whatsappMessage += `---\nتم الإرسال من موقع روابي الأحساء`;
+            
+            const whatsappURL = `https://wa.me/966544459478?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            showNotification('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً', 'success');
+            this.reset();
+        });
+    }
+}
+
+// ========== نموذج إتمام الطلب ==========
+function openCheckoutModal() {
+    const modal = document.querySelector('.checkout-modal');
+    const form = document.getElementById('checkoutForm');
+    
+    if (!modal || !form) return;
+    
+    // إنشاء نموذج الطلب
+    form.innerHTML = `
+        <div class="order-summary">
+            <h4>ملخص الطلب</h4>
+            ${cart.map((item, index) => `
+                <div class="order-item">
+                    <span>${index + 1}. ${item.name}</span>
+                    <span>${item.quantity} × ${item.price.toLocaleString()} ر.س</span>
+                </div>
+            `).join('')}
+            <div class="order-total">
+                <span>الإجمالي:</span>
+                <span>${(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 1.15).toLocaleString()} ر.س</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="checkout-name">الاسم الكامل *</label>
+            <input type="text" id="checkout-name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="checkout-phone">رقم الجوال *</label>
+            <input type="tel" id="checkout-phone" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="checkout-email">البريد الإلكتروني</label>
+            <input type="email" id="checkout-email">
+        </div>
+        
+        <div class="form-group">
+            <label for="checkout-address">عنوان المعاينة *</label>
+            <textarea id="checkout-address" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="checkout-city">المدينة *</label>
+            <select id="checkout-city" required>
+                <option value="">اختر المدينة</option>
+                <option value="الهفوف">الهفوف</option>
+                <option value="المبرز">المبرز</option>
+                <option value="العيون">العيون</option>
+                <option value="الجفر">الجفر</option>
+                <option value="المطار">المطار</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="checkout-date">الوقت المناسب للمعاينة</label>
+            <input type="datetime-local" id="checkout-date">
+        </div>
+        
+        <div class="payment-methods">
+            <label>طريقة الدفع:</label>
+            <div class="payment-option">
+                <input type="radio" id="cash" name="payment" value="cash" checked>
+                <label for="cash">الدفع عند المعاينة (نقداً)</label>
+            </div>
+            <div class="payment-option">
+                <input type="radio" id="bank" name="payment" value="bank">
+                <label for="bank">تحويل بنكي</label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="checkout-notes">ملاحظات إضافية</label>
+            <textarea id="checkout-notes" rows="3" placeholder="ملاحظات حول الخدمات المطلوبة..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn" id="submitOrder">
+            <i class="fas fa-paper-plane"></i> إرسال الطلب عبر واتساب
+        </button>
+    `;
+    
+    // إضافة حدث للنموذج
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        submitOrder();
+    };
+    
+    modal.classList.add('active');
+    
+    // إغلاق النموذج
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+    
+    // إغلاق النموذج بالضغط خارج
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+}
+
+function submitOrder() {
+    const orderData = {
+        name: document.getElementById('checkout-name').value,
+        phone: document.getElementById('checkout-phone').value,
+        email: document.getElementById('checkout-email').value || '',
+        address: document.getElementById('checkout-address').value,
+        city: document.getElementById('checkout-city').value,
+        date: document.getElementById('checkout-date').value || 'غير محدد',
+        payment: document.querySelector('input[name="payment"]:checked').value,
+        notes: document.getElementById('checkout-notes').value || '',
+        cart: cart,
+        orderNumber: 'RAW' + Date.now().toString().slice(-8),
+        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 1.15
+    };
+    
+    // إنشاء رسالة الواتساب
+    let whatsappMessage = `*طلب جديد - روابي الأحساء*\n`;
+    whatsappMessage += `*رقم الطلب:* ${orderData.orderNumber}\n`;
+    whatsappMessage += `*الاسم:* ${orderData.name}\n`;
+    whatsappMessage += `*الهاتف:* ${orderData.phone}\n`;
+    if (orderData.email) whatsappMessage += `*البريد:* ${orderData.email}\n`;
+    whatsappMessage += `*المدينة:* ${orderData.city}\n`;
+    whatsappMessage += `*العنوان:* ${orderData.address}\n`;
+    whatsappMessage += `*الوقت المناسب:* ${orderData.date}\n\n`;
+    
+    whatsappMessage += `*الخدمات المطلوبة:*\n`;
+    orderData.cart.forEach((item, index) => {
+        whatsappMessage += `${index + 1}. ${item.name} - ${item.quantity} × ${item.price.toLocaleString()} ر.س = ${(item.quantity * item.price).toLocaleString()} ر.س\n`;
+    });
+    
+    whatsappMessage += `\n*الإجمالي:* ${orderData.total.toLocaleString()} ر.س (شامل الضريبة)\n`;
+    whatsappMessage += `*طريقة الدفع:* ${orderData.payment === 'cash' ? 'نقداً عند المعاينة' : 'تحويل بنكي'}\n`;
+    
+    if (orderData.notes) {
+        whatsappMessage += `*ملاحظات:* ${orderData.notes}\n`;
+    }
+    
+    whatsappMessage += `\n---\nتم إرسال هذا الطلب من متجر روابي الأحساء الإلكتروني`;
+    
+    const whatsappURL = `https://wa.me/966544459478?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // حفظ الطلب في localStorage
+    saveOrderToHistory(orderData);
+    
+    // فتح الواتساب
+    window.open(whatsappURL, '_blank');
+    
+    // إظهار رسالة نجاح
+    showNotification(`شكراً لك ${orderData.name}! تم إرسال طلبك بنجاح برقم: ${orderData.orderNumber}`, 'success');
+    
+    // مسح السلة وإغلاق النماذج
+    cart = [];
+    saveCart();
+    updateCartCount();
+    closeCart();
+    document.querySelector('.checkout-modal').classList.remove('active');
+    
+    // إعادة توجيه إلى صفحة الشكر (يمكن إضافتها لاحقاً)
+    setTimeout(() => {
+        alert(`طلبك رقم ${orderData.orderNumber} قيد المراجعة. سيتم التواصل معك خلال 24 ساعة لتحديد موعد المعاينة.`);
+    }, 1000);
+}
+
+function saveOrderToHistory(order) {
+    const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+    orderHistory.unshift({
+        ...order,
+        date: new Date().toLocaleString('ar-SA'),
+        status: 'pending'
+    });
+    localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+}
+
+// ========== تصدير الدوال للاستخدام العام ==========
+window.initializeSite = initializeSite;
+window.loadServices = loadInitialData;
+window.setupEventListeners = setupEventListeners;
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
+window.openCart = openCart;
+window.closeCart = closeCart;
+window.toggleCart = toggleCart;
+window.searchServices = searchServices;
+window.openCheckoutModal = openCheckoutModal;
+window.submitOrder = submitOrder;
