@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتبع طلباتك - روابي الأحساء</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header (نفس header index.html) -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-contact">
+                    <a href="tel:0544459478"><i class="fas fa-phone"></i> 0544459478</a>
+                    <a href="mailto:suliman77064@gmail.com"><i class="fas fa-envelope"></i> suliman77064@gmail.com</a>
+                </div>
+                <div class="header-social">
+                    <a href="https://wa.me/966544459478" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-nav">
+            <div class="container nav-container">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <a href="index.html" class="logo">
+                    <div class="logo-placeholder">
+                        <div class="logo-icon">🏗️</div>
+                    </div>
+                    <div class="logo-text">
+                        <h1>روابي الأحساء</h1>
+                        <p>تتبع طلباتك</p>
+                    </div>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+                    <a href="index.html#services">الخدمات</a>
+                    <a href="index.html#gallery">معرض الأعمال</a>
+                    <a href="index.html#contact">اتصل بنا</a>
+                </div>
+                
+                <div class="nav-icons">
+                    <a href="index.html" class="home-icon" title="العودة للرئيسية">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tracking Section -->
+    <section class="tracking-section" style="padding: 140px 0 80px;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-truck"></i> تتبع طلباتك
+                </h2>
+                <p class="section-subtitle">تابع حالة طلباتك السابقة والمشاريع الجارية</p>
+            </div>
+            
+            <div class="tracking-container">
+                <!-- حقل البحث -->
+                <div class="search-tracking">
+                    <div class="search-box" style="max-width: 500px; margin: 0 auto 40px;">
+                        <input type="text" id="trackingSearch" placeholder="ابحث برقم الطلب أو اسمك...">
+                        <button onclick="searchOrder()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- حالة الطلب -->
+                <div class="order-status-guide" style="background: var(--light-gray); padding: 20px; border-radius: var(--radius-lg); margin-bottom: 40px;">
+                    <h4 style="color: var(--primary); margin-bottom: 15px;">دليل حالة الطلب:</h4>
+                    <div class="status-steps">
+                        <div class="status-step active">
+                            <div class="step-icon"><i class="fas fa-clipboard-check"></i></div>
+                            <span>تم الاستلام</span>
+                        </div>
+                        <div class="status-step">
+                            <div class="step-icon"><i class="fas fa-pencil-ruler"></i></div>
+                            <span>جاري التصميم</span>
+                        </div>
+                        <div class="status-step">
+                            <div class="step-icon"><i class="fas fa-tools"></i></div>
+                            <span>جاري التنفيذ</span>
+                        </div>
+                        <div class="status-step">
+                            <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                            <span>مكتمل</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- قائمة الطلبات -->
+                <div class="orders-list" id="ordersList">
+                    <!-- سيتم ملؤها بواسطة JavaScript -->
+                </div>
+                
+                <!-- إذا لم تكن هناك طلبات -->
+                <div class="no-orders" id="noOrders" style="display: none; text-align: center; padding: 60px 20px;">
+                    <i class="fas fa-box-open" style="font-size: 60px; color: var(--gray); margin-bottom: 20px;"></i>
+                    <h3 style="color: var(--dark); margin-bottom: 15px;">لا توجد طلبات سابقة</h3>
+                    <p style="color: var(--gray-dark); margin-bottom: 30px;">لم تقم بتقديم أي طلب حتى الآن</p>
+                    <a href="index.html" class="cta-button primary">
+                        <i class="fas fa-th-large"></i> تصفح الخدمات واطلب الآن
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>© 2024 روابي الأحساء - صفحة تتبع الطلبات</p>
+                    <p>للحصول على تحديثات فورية عن طلباتك، اتصل بنا على: 0544459478</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/966544459478?text=أريد%20استفسار%20عن%20حالة%20طلبي" 
+       class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // دالة تحميل الطلبات
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+            const ordersList = document.getElementById('ordersList');
+            const noOrders = document.getElementById('noOrders');
+            
+            if (orders.length === 0) {
+                ordersList.style.display = 'none';
+                noOrders.style.display = 'block';
+                return;
+            }
+            
+            noOrders.style.display = 'none';
+            ordersList.style.display = 'block';
+            
+            ordersList.innerHTML = orders.map(order => `
+                <div class="order-card" style="background: var(--white); border-radius: var(--radius-lg); padding: 25px; margin-bottom: 20px; box-shadow: var(--shadow);">
+                    <div class="order-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--gray);">
+                        <div>
+                            <h4 style="color: var(--primary); margin-bottom: 5px;">طلب رقم: ${order.orderNumber}</h4>
+                            <p style="color: var(--gray-dark); font-size: 14px;">
+                                <i class="fas fa-calendar"></i> ${order.date}
+                            </p>
+                        </div>
+                        <span class="order-status ${getStatusClass(order.status)}" style="background: ${getStatusColor(order.status)}; color: white; padding: 5px 15px; border-radius: var(--radius-xl); font-size: 14px; font-weight: 600;">
+                            ${getStatusText(order.status)}
+                        </span>
+                    </div>
+                    
+                    <div class="order-details" style="margin-bottom: 20px;">
+                        <p style="margin-bottom: 8px;"><strong>الاسم:</strong> ${order.name}</p>
+                        <p style="margin-bottom: 8px;"><strong>الهاتف:</strong> ${order.phone}</p>
+                        <p style="margin-bottom: 8px;"><strong>المدينة:</strong> ${order.city}</p>
+                        <p style="margin-bottom: 8px;"><strong>العنوان:</strong> ${order.address}</p>
+                        <p style="margin-bottom: 8px;"><strong>الإجمالي:</strong> ${order.total.toLocaleString()} ر.س</p>
+                    </div>
+                    
+                    <div class="order-items" style="margin-bottom: 20px;">
+                        <h5 style="color: var(--dark); margin-bottom: 10px;">الخدمات المطلوبة:</h5>
+                        ${order.cart.map(item => `
+                            <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--gray);">
+                                <span>${item.name}</span>
+                                <span>${item.quantity} × ${item.price.toLocaleString()} ر.س</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="order-actions" style="display: flex; gap: 10px;">
+                        <button onclick="contactAboutOrder('${order.orderNumber}')" 
+                                style="flex: 1; padding: 10px; background: var(--primary); color: white; border: none; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-phone"></i> استفسر عن الطلب
+                        </button>
+                        <button onclick="printOrder('${order.orderNumber}')" 
+                                style="flex: 1; padding: 10px; background: var(--light-gray); color: var(--dark); border: 1px solid var(--gray); border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-print"></i> طباعة
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // دالة البحث عن طلب
+        function searchOrder() {
+            const searchTerm = document.getElementById('trackingSearch').value.toLowerCase();
+            const orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+            
+            if (!searchTerm.trim()) {
+                loadOrders();
+                return;
+            }
+            
+            const filteredOrders = orders.filter(order => 
+                order.orderNumber.toLowerCase().includes(searchTerm) ||
+                order.name.toLowerCase().includes(searchTerm) ||
+                order.phone.includes(searchTerm)
+            );
+            
+            const ordersList = document.getElementById('ordersList');
+            const noOrders = document.getElementById('noOrders');
+            
+            if (filteredOrders.length === 0) {
+                ordersList.style.display = 'none';
+                noOrders.style.display = 'block';
+                noOrders.innerHTML = `
+                    <i class="fas fa-search" style="font-size: 60px; color: var(--gray); margin-bottom: 20px;"></i>
+                    <h3 style="color: var(--dark); margin-bottom: 15px;">لم يتم العثور على طلبات</h3>
+                    <p style="color: var(--gray-dark); margin-bottom: 30px;">جرب رقم طلب أو اسم مختلف</p>
+                    <button onclick="loadOrders()" class="cta-button secondary">
+                        <i class="fas fa-redo"></i> عرض جميع الطلبات
+                    </button>
+                `;
+            } else {
+                noOrders.style.display = 'none';
+                ordersList.style.display = 'block';
+                ordersList.innerHTML = filteredOrders.map(order => `
+                    <!-- نفس كود البطاقة السابق -->
+                `).join('');
+            }
+        }
+        
+        // دوال المساعدة
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'قيد المراجعة',
+                'confirmed': 'مؤكد',
+                'designing': 'جاري التصميم',
+                'installing': 'جاري التركيب',
+                'completed': 'مكتمل',
+                'delivered': 'تم التسليم'
+            };
+            return statusMap[status] || status;
+        }
+        
+        function getStatusColor(status) {
+            const colorMap = {
+                'pending': '#FFC107',
+                'confirmed': '#17A2B8',
+                'designing': '#007BFF',
+                'installing': '#6610F2',
+                'completed': '#28A745',
+                'delivered': '#6F42C1'
+            };
+            return colorMap[status] || '#6C757D';
+        }
+        
+        function getStatusClass(status) {
+            return status;
+        }
+        
+        // دالة الاتصال بخصوص طلب
+        function contactAboutOrder(orderNumber) {
+            const message = `أستفسر عن طلبي رقم: ${orderNumber}`;
+            const whatsappURL = `https://wa.me/966544459478?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+        
+        // دالة طباعة الطلب
+        function printOrder(orderNumber) {
+            const orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+            const order = orders.find(o => o.orderNumber === orderNumber);
+            
+            if (!order) {
+                alert('الطلب غير موجود');
+                return;
+            }
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html dir="rtl">
+                <head>
+                    <title>فاتورة ${orderNumber}</title>
+                    <style>
+                        body { font-family: 'Cairo', sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+                        .header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #8B4513; }
+                        .logo { font-size: 24px; font-weight: bold; color: #8B4513; margin-bottom: 10px; }
+                        .invoice-details { margin-bottom: 30px; }
+                        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                        th, td { border: 1px solid #ddd; padding: 10px; text-align: right; }
+                        th { background: #f8f9fa; }
+                        .total { font-size: 18px; font-weight: bold; color: #8B4513; margin-top: 20px; }
+                        @media print { button { display: none; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <div class="logo">روابي الأحساء</div>
+                        <h2>فاتورة طلب رقم: ${orderNumber}</h2>
+                        <p>${order.date}</p>
+                    </div>
+                    
+                    <div class="invoice-details">
+                        <p><strong>الاسم:</strong> ${order.name}</p>
+                        <p><strong>الهاتف:</strong> ${order.phone}</p>
+                        <p><strong>المدينة:</strong> ${order.city}</p>
+                        <p><strong>العنوان:</strong> ${order.address}</p>
+                        <p><strong>حالة الطلب:</strong> ${getStatusText(order.status)}</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>الخدمة</th>
+                                <th>الكمية</th>
+                                <th>سعر الوحدة</th>
+                                <th>المجموع</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${order.cart.map((item, index) => `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${item.name}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>${item.price.toLocaleString()} ر.س</td>
+                                    <td>${(item.price * item.quantity).toLocaleString()} ر.س</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    
+                    <div class="total">
+                        <p>المجموع الفرعي: ${(order.total / 1.15).toLocaleString()} ر.س</p>
+                        <p>الضريبة (15%): ${(order.total * 0.15 / 1.15).toLocaleString()} ر.س</p>
+                        <p style="font-size: 20px;">الإجمالي: ${order.total.toLocaleString()} ر.س</p>
+                    </div>
+                    
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 14px; color: #666;">
+                        <p>شكراً لثقتك بروابي الأحساء</p>
+                        <p>للاستفسار: 0544459478</p>
+                    </div>
+                    
+                    <button onclick="window.print()" style="margin-top: 20px; padding: 10px 20px; background: #8B4513; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        طباعة الفاتورة
+                    </button>
+                    
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                        }
+                    </script>
+                </body>
+                </html>
+            `);
+        }
+        
+        // تحميل الطلبات عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', loadOrders);
+        
+        // البحث بالضغط على Enter
+        document.getElementById('trackingSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchOrder();
+            }
+        });
+    </script>
+</body>
+</html>
