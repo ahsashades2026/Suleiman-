@@ -1,0 +1,28 @@
+{
+  "name": "روابي الأحساء",
+  "short_name": "روابي",
+  "description": "متجر خدمات المظلات والسواتر الفاخرة",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F5F0",
+  "theme_color": "#8B4513",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238B4513'/><path d='M30,35 L70,35 L70,45 L30,45 Z' fill='%23D4AF37'/><path d='M30,55 L70,55 L70,65 L30,65 Z' fill='%23D4AF37'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ],
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["business", "shopping"],
+  "screenshots": [
+    {
+      "src": "https://via.placeholder.com/540x720/8B4513/FFFFFF?text=روابي+الأحساء",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
