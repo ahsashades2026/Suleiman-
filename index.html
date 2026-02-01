@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روابي الأحساء | متجر خدمات المظلات والسواتر الفاخرة</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="متجر روابي الأحساء الإلكتروني - طلب خدمات المظلات، السواتر، البرجولات، القرميد، تنسيق الحدائق، الخيام الملكية والحدادة الفنية بضمان 15 سنة">
+    <meta name="keywords" content="مظلات الأحساء, سواتر الهفوف, برجولات, قرميد, هناجر, خدمات مقاولات, متجر إلكتروني, طلب خدمات حدادة">
+    <meta name="author" content="روابي الأحساء">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="روابي الأحساء | متجر خدمات المظلات والسواتر الفاخرة">
+    <meta property="og:description" content="أول متجر إلكتروني متخصص في خدمات المظلات، السواتر، البرجولات والحدادة الفنية. اطلب خدمتك الآن واحصل على معاينة مجانية!">
+    <meta property="og:type" content="website">
+    
+    <!-- PWA -->
+    <meta name="theme-color" content="#8B4513">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏗️</text></svg>">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "روابي الأحساء",
+        "telephone": "0544459478",
+        "email": "suliman77064@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "الهفوف",
+            "addressRegion": "الأحساء",
+            "streetAddress": "شارع الملك فهد"
+        },
+        "openingHours": "Su-Th 08:00-22:00",
+        "priceRange": "$$",
+        "description": "متجر خدمات المظلات والسواتر الفاخرة بضمان 15 سنة"
+    }
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-contact">
+                    <a href="tel:0544459478"><i class="fas fa-phone"></i> 0544459478</a>
+                    <a href="mailto:suliman77064@gmail.com"><i class="fas fa-envelope"></i> suliman77064@gmail.com</a>
+                </div>
+                <div class="header-social">
+                    <a href="https://wa.me/966544459478" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-nav">
+            <div class="container nav-container">
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="logo" onclick="window.location.href='#'">
+                    <div class="logo-placeholder">
+                        <div class="logo-icon">🏗️</div>
+                    </div>
+                    <div class="logo-text">
+                        <h1>روابي الأحساء</h1>
+                        <p>متجر الخدمات الفاخرة</p>
+                    </div>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#home">الرئيسية</a>
+                    <a href="#services">الخدمات</a>
+                    <a href="#gallery">معرض الأعمال</a>
+                    <a href="#about">عن الشركة</a>
+                    <a href="#contact">اتصل بنا</a>
+                </div>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="ابحث عن الخدمة التي تريدها..." id="searchInput">
+                    <button type="submit" onclick="searchServices()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="nav-icons">
+                    <a href="track.html" class="track-order" title="تتبع طلبك">
+                        <i class="fas fa-truck"></i>
+                    </a>
+                    <a href="#" class="cart-icon" id="cartIcon" title="سلة المشتريات">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="close-menu"><i class="fas fa-times"></i></button>
+        <a href="#home"><i class="fas fa-home"></i> الرئيسية</a>
+        <a href="#services"><i class="fas fa-th-large"></i> الخدمات</a>
+        <a href="#gallery"><i class="fas fa-images"></i> معرض الأعمال</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> عن الشركة</a>
+        <a href="#contact"><i class="fas fa-phone"></i> اتصل بنا</a>
+        <a href="track.html"><i class="fas fa-truck"></i> تتبع الطلب</a>
+        <div class="mobile-contact">
+            <a href="tel:0544459478"><i class="fas fa-phone"></i> 0544459478</a>
+            <a href="https://wa.me/966544459478" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h2>مرحباً في <span class="highlight">متجر روابي الأحساء</span></h2>
+                <p class="hero-subtitle">أول متجر إلكتروني متخصص في خدمات المظلات، السواتر، البرجولات والحدادة الفنية</p>
+                <p class="hero-description">نقدم خدمات احترافية بضمان 15 سنة، فريق عمل متخصص، مواد عالية الجودة، وتنفيذ دقيق وفق المواصفات</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="cta-button primary">
+                        <i class="fas fa-th-large"></i> تصفح الخدمات
+                    </a>
+                    <a href="tel:0544459478" class="cta-button secondary">
+                        <i class="fas fa-phone"></i> طلب معاينة مجانية
+                    </a>
+                </div>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>ضمان 15 سنة</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-truck"></i>
+                        <span>تركيب سريع</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <span>دعم فني 24/7</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-medal"></i>
+                        <span>جودة عالمية</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">خدماتنا المتاحة للطلب</h2>
+                <p class="section-subtitle">اختر من بين مجموعة خدماتنا الفاخرة بضمان 15 سنة</p>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">جميع الخدمات</button>
+                    <button class="filter-btn" data-filter="هناجر">هناجر ومستودعات</button>
+                    <button class="filter-btn" data-filter="سواتر">سواتر وشبوك</button>
+                    <button class="filter-btn" data-filter="برجولات">برجولات</button>
+                    <button class="filter-btn" data-filter="مظلات">مظلات</button>
+                    <button class="filter-btn" data-filter="قرميد">قرميد</button>
+                </div>
+                
+                <div class="sort-controls">
+                    <select class="sort-select" id="sortSelect">
+                        <option value="popular">الأكثر طلباً</option>
+                        <option value="price-low">السعر: من الأقل للأعلى</option>
+                        <option value="price-high">السعر: من الأعلى للأقل</option>
+                        <option value="newest">الأحدث أولاً</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="services-grid" id="servicesGrid">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+            
+            <div class="load-more">
+                <button class="load-more-btn" id="loadMoreBtn">
+                    <i class="fas fa-plus"></i> عرض المزيد من الخدمات
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">معرض أعمالنا</h2>
+                <p class="section-subtitle">أحدث مشاريعنا المنفذة في الأحساء والمنطقة الشرقية</p>
+            </div>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+            
+            <div class="gallery-cta">
+                <p>هل تريد رؤية المزيد من أعمالنا؟</p>
+                <a href="tel:0544459478" class="cta-button">
+                    <i class="fas fa-images"></i> اطلب معاينة لمشاريعنا السابقة
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">عن روابي الأحساء</h2>
+                    <p>نحن متجر روابي الأحساء الإلكتروني، نقدم خدمات المظلات والسواتر الفاخرة بضمان 15 سنة. خدمة الأحساء والمنطقة الشرقية منذ 2005.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h4>خبرة 15+ سنة</h4>
+                            <p>أكثر من 15 سنة في مجال الحدادة والإنشاءات</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-user-friends"></i>
+                            <h4>فريق متخصص</h4>
+                            <p>فريق عمل محترف مع تدريب مستمر</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-award"></i>
+                            <h4>جودة مضمونة</h4>
+                            <p>مواد عالية الجودة من موردين معتمدين</p>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-tools"></i>
+                            <h4>أحدث المعدات</h4>
+                            <p>معدات حديثة لتنفيذ دقيق وسريع</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-count="500">0</span>
+                            <span class="stat-label">مشروع منفذ</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="98">0</span>
+                            <span class="stat-label">% رضا العملاء</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="15">0</span>
+                            <span class="stat-label">سنة ضمان</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="24">0</span>
+                            <span class="stat-label">ساعة دعم</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ماذا يقول عملاؤنا</h2>
+                <p class="section-subtitle">تقييمات حقيقية من عملائنا الكرام</p>
+            </div>
+            
+            <div class="testimonials-grid" id="testimonialsGrid">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">أسئلة متكررة</h2>
+                <p class="section-subtitle">إجابات على أكثر الأسئلة شيوعاً</p>
+            </div>
+            
+            <div class="faq-container" id="faqContainer">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2 class="section-title">تواصل معنا</h2>
+                    <p>نحن هنا لخدمتك في أي وقت، اتصل بنا للحصول على استشارة مجانية</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>اتصل بنا</h4>
+                                <a href="tel:0544459478">0544459478</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>البريد الإلكتروني</h4>
+                                <a href="mailto:suliman77064@gmail.com">suliman77064@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>العنوان</h4>
+                                <p>الأحساء - الهفوف - شارع الملك فهد</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>ساعات العمل</h4>
+                                <p>الأحد - الخميس: 8 ص - 10 م</p>
+                                <p>الجمعة - السبت: 4 م - 10 م</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <h4>تابعنا على</h4>
+                        <div class="social-icons">
+                            <a href="https://wa.me/966544459478" target="_blank" class="whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="snapchat">
+                                <i class="fab fa-snapchat"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>ارسل لنا رسالة</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="الاسم الكامل" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="رقم الجوال" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="البريد الإلكتروني">
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">نوع الخدمة المطلوبة</option>
+                                <option value="هناجر">هناجر ومستودعات</option>
+                                <option value="سواتر">سواتر وشبوك</option>
+                                <option value="برجولات">برجولات</option>
+                                <option value="مظلات">مظلات</option>
+                                <option value="قرميد">قرميد</option>
+                                <option value="استشارة">استشارة مجانية</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="رسالتك أو وصف المشروع..." rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> ارسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/966544459478?text=مرحباً%20أريد%20استفسار%20عن%20خدماتكم" 
+       class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top -->
+    <button class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> سلة الخدمات</h3>
+            <button class="close-cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <!-- سيتم ملؤها بواسطة JavaScript -->
+        </div>
+        
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>المجموع الفرعي:</span>
+                <span class="cart-subtotal">0 ر.س</span>
+            </div>
+            <div class="summary-row">
+                <span>الضريبة (15%):</span>
+                <span class="cart-tax">0 ر.س</span>
+            </div>
+            <div class="summary-row total-row">
+                <span>الإجمالي:</span>
+                <span class="cart-total">0 ر.س</span>
+            </div>
+            
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-check-circle"></i> إتمام الطلب
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal">
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <h3>إتمام طلب الخدمات</h3>
+            <form id="checkoutForm">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <div class="logo-placeholder">
+                            <div class="logo-icon">🏗️</div>
+                        </div>
+                        <div class="logo-text">
+                            <h3>روابي الأحساء</h3>
+                            <p>متجر الخدمات الفاخرة</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        متجر روابي الأحساء الإلكتروني - نقدم خدمات المظلات والسواتر الفاخرة بضمان 15 سنة. 
+                        خدمة الأحساء والمنطقة الشرقية منذ 2005.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>روابط سريعة</h4>
+                    <a href="#services"><i class="fas fa-chevron-left"></i> جميع الخدمات</a>
+                    <a href="#gallery"><i class="fas fa-chevron-left"></i> معرض الأعمال</a>
+                    <a href="#about"><i class="fas fa-chevron-left"></i> عن الشركة</a>
+                    <a href="#contact"><i class="fas fa-chevron-left"></i> اتصل بنا</a>
+                    <a href="track.html"><i class="fas fa-chevron-left"></i> تتبع طلبك</a>
+                </div>
+                
+                <div class="footer-services">
+                    <h4>خدماتنا</h4>
+                    <a href="#"><i class="fas fa-chevron-left"></i> هناجر ومستودعات</a>
+                    <a href="#"><i class="fas fa-chevron-left"></i> سواتر وشبوك</a>
+                    <a href="#"><i class="fas fa-chevron-left"></i> برجولات وجلسات</a>
+                    <a href="#"><i class="fas fa-chevron-left"></i> مظلات سيارات</a>
+                    <a href="#"><i class="fas fa-chevron-left"></i> قرميد إيطالي</a>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>معلومات التواصل</h4>
+                    <p><i class="fas fa-phone"></i> 0544459478</p>
+                    <p><i class="fas fa-envelope"></i> suliman77064@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الأحساء - الهفوف - شارع الملك فهد</p>
+                    <p><i class="fas fa-clock"></i> الأحد - الخميس: 8 ص - 10 م</p>
+                    
+                    <div class="footer-social">
+                        <a href="https://wa.me/966544459478" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-snapchat"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>© 2024 روابي الأحساء للمظلات والسواتر الفاخرة. جميع الحقوق محفوظة.</p>
+                    <p>هذا الموقع للطلب المبدئي فقط - الأسعار قابلة للتغيير بعد المعاينة الميدانية</p>
+                </div>
+                
+                <div class="footer-payments">
+                    <span>طرق الدفع المقبولة:</span>
+                    <div class="payment-icons">
+                        <i class="fas fa-money-bill-wave" title="نقداً"></i>
+                        <i class="fas fa-university" title="تحويل بنكي"></i>
+                        <i class="fab fa-cc-mada" title="مدى"></i>
+                        <i class="fab fa-cc-visa" title="فيزا"></i>
+                        <i class="fab fa-cc-mastercard" title="ماستركارد"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    
+    <!-- Initialize -->
+    <script>
+        // Initialize the site when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all components
+            if (typeof initializeSite === 'function') {
+                initializeSite();
+            }
+            
+            // Load initial data
+            if (typeof loadServices === 'function') {
+                loadServices();
+            }
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+    </script>
+</body>
+                          </html>
